@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Offers - Supplements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #1e2a39;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #1c252e;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            position: relative;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #ff9900;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: #1e2a39;
+            padding: 10px;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .submenu a {
+            display: block;
+            padding: 5px 10px;
+            color: white;
+            text-decoration: none;
+        }
+        .submenu a:hover {
+            background-color: #333;
+        }
+        .dropdown:hover .submenu {
+            display: block;
+        }
+        .offers, .product-category, .contact-info, .login-section {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .offer-item {
+            background: #f4f4f4;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            text-align: center;
+            position: relative;
+        }
+        .offer-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .discount {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff0000;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .product-item {
+            background: #f4f4f4;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            text-align: center;
+        }
+        .product-item select {
+            margin-top: 10px;
+        }
+        footer {
+            background-color: #1e2a39;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .active {
+            display: block;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #1e2a39;
+        }
+        .login-container label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333;
+            text-align: left;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1e2a39;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #ff9900;
+        }
+        .login-container .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #1e2a39;
+            text-decoration: none;
+        }
+        .login-container .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.offers, .product-category, .contact-info, .login-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function updatePrice(selectElement, basePrice, priceElementId) {
+            const multiplier = selectElement.options[selectElement.selectedIndex].value;
+            const newPrice = (basePrice * multiplier).toFixed(2);
+            document.getElementById(priceElementId).textContent = `Price: $${newPrice}`;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Special Offers</h1>
+    </header>
+    <nav>
+        <div class="dropdown">
+            <a href="#">Categories</a>
+            <div class="submenu">
+                <a href="#" onclick="showSection('proteins')">Proteins</a>
+                <a href="#" onclick="showSection('creatine')">Creatine</a>
+                <a href="#" onclick="showSection('gainers')">Gainers</a>
+                <a href="#" onclick="showSection('protein-bars')">Protein Bars</a>
+            </div>
+        </div>
+        <a href="#" onclick="showSection('offers')">Special Offers</a>
+        <a href="#" onclick="showSection('contact')">Contact & Delivery</a>
+        <a href="#" onclick="showSection('login')">Profile</a>
+    </nav>
+    <section id="proteins" class="product-category">
+        <div class="product-item">
+            <img src="proteinaI.jpg" alt="Whey Protein">
+            <h3>Whey Protein</h3>
+            <p id="price1">Price: $40</p>
+            <label for="size1">Select size:</label>
+            <select id="size1" onchange="updatePrice(this, 40, 'price1')">
+                <option value="1">500g</option>
+                <option value="2">1kg</option>
+                <option value="5">2.5kg</option>
+            </select>
+        </div>
+    </section>
+    <section id="creatine" class="product-category">
+        <div class="product-item">
+            <img src="creatina500g.PNG" alt="Creatine Powder">
+            <h3>Creatine Powder</h3>
+            <p id="price2">Price: $25</p>
+            <label for="size2">Select size:</label>
+            <select id="size2" onchange="updatePrice(this, 25, 'price2')">
+                <option value="1">300g</option>
+                <option value="2">500g</option>
+            </select>
+        </div>
+    </section>
+    <section id="gainers" class="product-category">
+        <div class="product-item">
+            <img src="weight-gainer-massive-25kg.png" alt="Mass Gainer">
+            <h3>Mass Gainer</h3>
+            <p id="price3">Price: $40</p>
+            <label for="size3">Select size:</label>
+            <select id="size3" onchange="updatePrice(this, 40, 'price3')">
+                <option value="1">1kg</option>
+                <option value="2">2.5kg</option>
+                <option value="5">5kg</option>
+            </select>
+        </div>
+    </section>
+    <section id="protein-bars" class="product-category">
+        <div class="product-item">
+            <img src="prBAR.webp" alt="Protein Bars">
+            <h3>Protein Bars</h3>
+            <p id="price4">Price: $15</p>
+            <label for="pack">Select pack:</label>
+            <select id="pack" onchange="updatePrice(this, 15, 'price4')">
+                <option value="1">Pack of 6</option>
+                <option value="2">Pack of 12</option>
+            </select>
+        </div>
+    </section>
+    <section id="offers" class="offers active">
+        <div class="offer-item">
+            <div class="discount">-80%</div>
+            <img src="prNUTRA.webp" alt="Proteins">
+            <h3>Proteins 1kg</h3>
+            <p>Price: $35</p>
+        </div>
+        <div class="offer-item">
+            <div class="discount">-50%</div>
+            <img src="creatina500g.PNG" alt="Creatine">
+            <h3>Creatine 500g</h3>
+            <p>Price: $25</p>
+        </div>
+        <div class="offer-item">
+            <div class="discount">-30%</div>
+            <img src="weight-gainer-massive-25kg.png" alt="Gainers">
+            <h3>Gainers 2.5kg</h3>
+            <p>Price: $40</p>
+        </div>
+    </section>
+    <section id="contact" class="contact-info">
+        <p><strong>Delivery Method:</strong> Fast courier, estimated delivery time: 2-5 business days.</p>
+        <p><strong>Delivery Price:</strong> Free for deliveries over $300. For orders under $300, the cost is $40.</p>
+        <p><strong>Contact:</strong></p>
+        <p>Email: <a href="mailto:info@suplimente.ro">info@suplimente.ro</a></p>
+        <p>Phone: 0723 456 789</p>
+    </section>
+    <section id="login" class="login-section">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form action="#" method="post">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <button type="submit">Login</button>
+                <button type="button" onclick="showSection('register')">Create Account</button>
+            </form>
+            <a href="#" class="back-link" onclick="showSection('offers')">Back to Home</a>
+        </div>
+    </section>
+    <section id="register" class="login-section">
+        <div class="login-container">
+            <h1>Create Account</h1>
+            <form action="#" method="post">
+                <label for="reg-email">Email</label>
+                <input type="email" id="reg-email" name="reg-email" placeholder="Enter your email" required>
+
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" name="reg-password" placeholder="Enter your password" required>
+
+                <label for="reg-confirm-password">Confirm Password</label>
+                <input type="password" id="reg-confirm-password" name="reg-confirm-password" placeholder="Confirm your password" required>
+
+                <button type="submit">Register</button>
+            </form>
+            <a href="#" class="back-link" onclick="showSection('login')">Back to Login</a>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Supplements Guide. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
